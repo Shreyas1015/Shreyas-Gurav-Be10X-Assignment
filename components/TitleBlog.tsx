@@ -23,7 +23,9 @@ const TitleBlog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("/api/allblogs");
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/allblogs`
+        );
         const blogs = response.data.blogsData;
         console.log(blogs);
         if (blogs.length > 0) {
@@ -50,7 +52,7 @@ const TitleBlog = () => {
             >
               {blog.content}
             </p>
-            <Link href={`/blog/${blog.bid}`}>
+            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.bid}`}>
               <button className="px-4 py-2 my-3 text-white bg-black border border-black rounded-md hover:border-black hover:text-black hover:bg-transparent">
                 Read More
               </button>

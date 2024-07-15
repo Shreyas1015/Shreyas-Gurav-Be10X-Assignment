@@ -20,7 +20,9 @@ const BlogDetails = ({ params }: { params: any }) => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const res = await axios.get(`/api/blog-details/${bid}`);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/blog-details/${bid}`
+        );
         setBlogData(res.data.blogData);
       } catch (error) {
         console.error("Error fetching blogs:", error);
