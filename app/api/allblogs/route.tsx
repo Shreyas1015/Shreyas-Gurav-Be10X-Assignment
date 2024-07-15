@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { title, content } = body;
+  const { title, content, imageUrl } = body;
 
   if (!title || !content) {
     return NextResponse.json(
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
       data: {
         title,
         content,
+        imageUrl,
         uid: session.user.uid,
       },
     });

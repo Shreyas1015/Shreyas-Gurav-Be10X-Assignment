@@ -60,9 +60,9 @@ export async function PUT(req: Request) {
   }
 
   const body = await req.json();
-  const { bid, title, content } = body;
+  const { bid, title, content, imageUrl } = body;
 
-  if (!bid || !title || !content) {
+  if (!bid || !title || !content || !imageUrl) {
     return NextResponse.json(
       { error: "Blog ID, title and content are required" },
       { status: 400 }
@@ -75,6 +75,7 @@ export async function PUT(req: Request) {
       data: {
         title,
         content,
+        imageUrl,
       },
     });
 

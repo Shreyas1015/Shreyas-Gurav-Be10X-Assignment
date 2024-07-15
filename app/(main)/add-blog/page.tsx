@@ -3,13 +3,35 @@
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import axios from "axios";
+import { IKContext, IKUpload } from "imagekitio-react";
 
 const CreateBlogForm = () => {
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const authenticator = async () => {
+    try {
+      const response = await fetch("/api/image-authenticator");
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `Request failed with status ${response.status}: ${errorText}`
+        );
+      }
+
+      const data = await response.json();
+      const { signature, expire, token } = data;
+      return { signature, expire, token };
+    } catch (error: any) {
+      console.error(`Authentication request failed: ${error.message}`);
+      throw new Error(`Authentication request failed: ${error.message}`);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,11 +44,16 @@ const CreateBlogForm = () => {
     }
 
     try {
-      const response = await axios.post("/api/allblogs", { title, content });
+      const response = await axios.post("/api/allblogs", {
+        title,
+        content,
+        imageUrl,
+      });
       if (response.data.authenticated) {
         setSuccess("Blog created successfully!");
         setTitle("");
         setContent("");
+        setImageUrl("");
       } else {
         setError("Error creating blog");
       }
@@ -36,6 +63,8 @@ const CreateBlogForm = () => {
     }
   };
 
+  const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY ?? "";
+  const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ?? "";
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4 text-center">Create New Blog</h1>
@@ -74,6 +103,35 @@ const CreateBlogForm = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
             rows={6}
           />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="image"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Upload Image
+          </label>
+          <IKContext
+            publicKey={publicKey}
+            urlEndpoint={urlEndpoint}
+            authenticator={authenticator}
+          >
+            <IKUpload
+              onSuccess={(res) => {
+                setImageUrl(res.url);
+                alert("Image uploaded successfully");
+              }}
+              onError={(err) => {
+                console.error("Error uploading image:", err);
+                setError("Error uploading image");
+              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              fileName={`blog_${new Date().getTime()}.jpg`}
+              folder="/blogs"
+              useUniqueFileName={true}
+              isPrivateFile={false}
+            />
+          </IKContext>
         </div>
         <button
           type="submit"
