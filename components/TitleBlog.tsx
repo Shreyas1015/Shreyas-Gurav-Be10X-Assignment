@@ -23,9 +23,7 @@ const TitleBlog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/allblogs`
-        );
+        const response = await axios.get(`/api/allblogs`);
         const blogs = response.data.blogsData;
         console.log(blogs);
         if (blogs.length > 0) {

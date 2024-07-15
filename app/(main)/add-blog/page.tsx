@@ -46,14 +46,11 @@ const CreateBlogForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/allblogs`,
-        {
-          title,
-          content,
-          imageUrl,
-        }
-      );
+      const response = await axios.post(`/api/allblogs`, {
+        title,
+        content,
+        imageUrl,
+      });
       if (response.data.authenticated) {
         setSuccess("Blog created successfully!");
         setTitle("");

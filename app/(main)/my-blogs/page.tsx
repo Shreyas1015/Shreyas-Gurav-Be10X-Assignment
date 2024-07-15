@@ -31,9 +31,7 @@ const MyBlogsPage = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-blogs`
-        );
+        const response = await axios.get(`/api/my-blogs`);
         setBlogs(response.data.blogsData);
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -52,9 +50,7 @@ const MyBlogsPage = () => {
 
   const authenticator = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/image-authenticator`
-      );
+      const response = await fetch(`/api/image-authenticator`);
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -78,15 +74,12 @@ const MyBlogsPage = () => {
     if (!editingBlog) return;
 
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-blogs`,
-        {
-          bid: editingBlog.bid,
-          title,
-          content,
-          imageUrl,
-        }
-      );
+      const response = await axios.put(`/api/my-blogs`, {
+        bid: editingBlog.bid,
+        title,
+        content,
+        imageUrl,
+      });
       setBlogs((prevBlogs) =>
         prevBlogs.map((blog) =>
           blog.bid === editingBlog.bid ? response.data.updatedBlog : blog
@@ -107,7 +100,7 @@ const MyBlogsPage = () => {
 
   const handleDelete = async (bid: number) => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-blogs`, {
+      await axios.delete(`/api/my-blogs`, {
         data: { bid },
       });
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.bid !== bid));

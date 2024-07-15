@@ -24,9 +24,7 @@ const AllBlogsPage = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/allblogs`
-        );
+        const response = await axios.get(`/api/allblogs`);
         setBlogs(response.data.blogsData);
       } catch (error) {
         console.error("Error fetching blogs:", error);

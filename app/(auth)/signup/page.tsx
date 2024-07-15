@@ -38,10 +38,7 @@ const SignUp = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/signup`,
-        formData
-      );
+      const response = await axios.post(`/api/signup`, formData);
       setSuccess(response.data.message);
       alert("User Created Successfully");
       router.push(`/login`);
