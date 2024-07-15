@@ -9,7 +9,7 @@ const NavBar = () => {
   const router = useRouter();
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/login` });
+    signOut({ callbackUrl: `/login` });
   };
 
   return (

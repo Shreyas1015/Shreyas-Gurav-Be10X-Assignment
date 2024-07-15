@@ -30,7 +30,7 @@ const Login = () => {
     } else {
       alert("Login success");
       console.log(result);
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/all-blogs`);
+      router.push(`/all-blogs`);
     }
   };
 

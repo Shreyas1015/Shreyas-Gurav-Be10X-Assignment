@@ -4,10 +4,15 @@ import { db } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
+    console.log("Request received:", req.method, req.url);
+
     const res = await req.json();
+    console.log("Request body:", res);
+
     const { name, email, password } = res;
 
     if (!name || !email || !password) {
+      console.log("Validation error: Name, email, and password are required");
       return NextResponse.json(
         { error: "Name, email, and password are required" },
         { status: 400 }
@@ -33,6 +38,7 @@ export async function POST(req: Request) {
     }
 
     if (errors.length > 0) {
+      console.log("Validation error: Password requirements not met");
       return NextResponse.json(
         { error: `Password must include ${errors.join(", ")}` },
         { status: 400 }
@@ -48,6 +54,7 @@ export async function POST(req: Request) {
     });
 
     if (existingUser) {
+      console.log("User with email already exists:", email);
       return NextResponse.json(
         { error: "Email already exists" },
         { status: 409 }
@@ -62,12 +69,13 @@ export async function POST(req: Request) {
       },
     });
 
+    console.log("User created successfully:", result);
     return NextResponse.json(
       { message: "User created successfully", result },
       { status: 201 }
     );
   } catch (error) {
-    console.error(error);
+    console.error("Internal Server Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

@@ -44,7 +44,7 @@ const SignUp = () => {
       );
       setSuccess(response.data.message);
       alert("User Created Successfully");
-      router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/login`);
+      router.push(`/login`);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         setError(err.response.data.error);

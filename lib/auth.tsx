@@ -11,7 +11,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: process.env.NEXT_PUBLIC_BASE_URL + "/signup",
+    signIn: "/signup",
   },
   providers: [
     CredentialsProvider({

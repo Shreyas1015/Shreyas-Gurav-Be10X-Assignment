@@ -69,7 +69,7 @@ const AllBlogsPage = () => {
             >
               {blog.content}
             </p>
-            <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.bid}`}>
+            <Link href={`/blog/${blog.bid}`}>
               <button className="px-4 py-2 my-3 text-white bg-black border border-black rounded-md hover:border-black hover:text-black hover:bg-transparent">
                 Read More
               </button>

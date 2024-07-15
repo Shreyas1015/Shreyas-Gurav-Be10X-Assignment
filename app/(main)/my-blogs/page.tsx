@@ -130,7 +130,7 @@ const MyBlogsPage = () => {
             <span className="visually-hidden text-center">Loading...</span>
           </div>
           <a
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/add-blog`}
+            href={`/add-blog`}
             className="block text-center text-blue-500 hover:text-blue-700"
           >
             Add a blog
