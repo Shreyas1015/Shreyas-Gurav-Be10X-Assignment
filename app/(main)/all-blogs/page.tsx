@@ -35,17 +35,14 @@ const AllBlogsPage = () => {
   }, []);
 
   return (
-    <div className="container-fluid mx-auto ">
+    <div className="container mx-auto ">
       <h1 className="text-3xl font-bold mb-4 text-start">Blog</h1>
       <TitleBlog />
       <h1 className="text-3xl font-bold my-7 text-start">All Blogs</h1>
       <hr />
-      <div className="row mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {blogs.map((blog) => (
-          <div
-            key={blog.bid}
-            className="bg-white p-4 rounded-lg shadow-lg col-lg-4 col-sm-6 col-12 mx-auto my-3"
-          >
+          <div key={blog.bid} className="bg-white p-6 rounded-lg shadow-lg">
             <Image
               src={blog.imageUrl}
               alt="Image URL"
