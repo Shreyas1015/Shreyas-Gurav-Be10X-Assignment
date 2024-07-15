@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!existingUser) {
-          return null;
+          throw new Error("Invalid credentials");
         }
 
         const passwordMatch =
@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
           (await compare(credentials.password, existingUser.password));
 
         if (!passwordMatch) {
-          return null;
+          throw new Error("Invalid credentials");
         }
 
         return {
@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log("Generated Token : ", token, "By User : ", user);
+      console.log("Generated Token : ", token);
       if (user) {
         return {
           ...token,
