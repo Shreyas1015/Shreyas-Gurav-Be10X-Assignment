@@ -60,6 +60,8 @@ const SignUp = () => {
         </Link>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {success && <p className="text-green-500 mb-4">{success}</p>}
+        <h2 className="text-dark">{process.env.NEXT_PUBLIC_NEXTAUTH_SECRET}</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Name</label>
