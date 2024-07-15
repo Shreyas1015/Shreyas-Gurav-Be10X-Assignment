@@ -39,10 +39,7 @@ const Login = () => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Login Page</h2>
         <nav className="flex justify-center space-x-4">
-          <Link
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/signup`}
-            className="text-blue-500 hover:text-blue-700"
-          >
+          <Link href={`/signup`} className="text-blue-500 hover:text-blue-700">
             <p>Don&apos;t Have An Account ? Sign Up</p>
           </Link>
         </nav>

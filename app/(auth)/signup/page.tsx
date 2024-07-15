@@ -58,7 +58,7 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-        <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/login`} className="text-blue-500 hover:text-blue-700">
+        <Link href={`/login`} className="text-blue-500 hover:text-blue-700">
           <p>Already Have An account ? Login</p>
         </Link>
         {error && <p className="text-red-500 mb-4">{error}</p>}
