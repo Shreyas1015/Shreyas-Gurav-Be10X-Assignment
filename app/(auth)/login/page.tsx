@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
@@ -26,10 +27,10 @@ const Login = () => {
     });
 
     if (result?.error) {
-      setError(result.error);
+      // setError(result.error);
+      toast.error(result.error);
     } else {
-      alert("Login success");
-      console.log(result);
+      toast.success("Login success");
       router.push(`/all-blogs`);
     }
   };
@@ -43,7 +44,7 @@ const Login = () => {
             <p>Don&apos;t Have An Account ? Sign Up</p>
           </Link>
         </nav>
-        {error && <p className="text-red-500">{error}</p>}
+        {/* {error && <p className="text-red-500">{error}</p>} */}
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label

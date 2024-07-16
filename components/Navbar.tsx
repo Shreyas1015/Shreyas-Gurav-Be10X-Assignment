@@ -15,7 +15,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
-        <Link className="navbar-brand" href="/allblogs">
+        <Link className="navbar-brand" href="/all-blogs">
           <div className="rounded-full border border-black overflow-hidden">
             <Image
               className="object-cover"

@@ -4,14 +4,15 @@ import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import axios from "axios";
 import { IKContext, IKUpload } from "imagekitio-react";
+import toast from "react-hot-toast";
 
 const CreateBlogForm = () => {
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  // const [error, setError] = useState("");
+  // const [success, setSuccess] = useState("");
 
   const authenticator = async () => {
     try {
@@ -37,11 +38,9 @@ const CreateBlogForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
     if (!title || !content) {
-      setError("Title and content are required");
+      toast.error("Title and content are required");
       return;
     }
 
@@ -52,16 +51,16 @@ const CreateBlogForm = () => {
         imageUrl,
       });
       if (response.data.authenticated) {
-        setSuccess("Blog created successfully!");
+        toast.success("Blog created successfully!");
         setTitle("");
         setContent("");
         setImageUrl("");
       } else {
-        setError("Error creating blog");
+        toast.error("Error creating blog");
       }
     } catch (error) {
       console.error("Error creating blog:", error);
-      setError("Error creating blog");
+      toast.error("Error creating blog");
     }
   };
 
@@ -74,8 +73,8 @@ const CreateBlogForm = () => {
         onSubmit={handleSubmit}
         className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg"
       >
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        {success && <div className="text-green-500 mb-4">{success}</div>}
+        {/* {error && <div className="text-red-500 mb-4">{error}</div>}
+        {success && <div className="text-green-500 mb-4">{success}</div>} */}
         <div className="mb-4">
           <label
             htmlFor="title"
@@ -121,11 +120,11 @@ const CreateBlogForm = () => {
             <IKUpload
               onSuccess={(res) => {
                 setImageUrl(res.url);
-                alert("Image uploaded successfully");
+                toast.success("Image uploaded successfully");
               }}
               onError={(err) => {
                 console.error("Error uploading image:", err);
-                setError("Error uploading image");
+                toast.error("Error uploading image");
               }}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               fileName={`blog_${new Date().getTime()}.jpg`}

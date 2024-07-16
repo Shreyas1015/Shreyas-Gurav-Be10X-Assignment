@@ -4,6 +4,7 @@ import Provider from "@/components/Provider";
 import NavBar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </>
+          <Toaster position="top-center" reverseOrder={false} />
         </Provider>
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

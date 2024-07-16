@@ -6,6 +6,7 @@ import axios from "axios";
 import Image from "next/image";
 import { IKContext, IKUpload } from "imagekitio-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Blog = {
   bid: number;
@@ -25,8 +26,8 @@ const MyBlogsPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  // const [error, setError] = useState("");
+  // const [success, setSuccess] = useState("");
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -89,12 +90,12 @@ const MyBlogsPage = () => {
       setTitle("");
       setContent("");
       setImageUrl("");
-      setSuccess("");
-      alert(" Blog updated successfully");
+
+      toast.success(" Blog updated successfully");
       router.refresh();
     } catch (error) {
       console.error("Error updating blog:", error);
-      setError("Error updating blog");
+      toast.error("Error updating blog");
     }
   };
 
@@ -104,8 +105,10 @@ const MyBlogsPage = () => {
         data: { bid },
       });
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.bid !== bid));
+      toast.error("Blog Deleted");
     } catch (error) {
       console.error("Error deleting blog:", error);
+      toast.error("Error deleting blog");
     }
   };
 
@@ -175,10 +178,6 @@ const MyBlogsPage = () => {
               <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
                 <h2 className="text-xl font-semibold mb-4">Edit Blog</h2>
                 <form onSubmit={handleUpdate}>
-                  {error && <div className="text-red-500 mb-4">{error}</div>}
-                  {success && (
-                    <div className="text-green-500 mb-4">{success}</div>
-                  )}
                   <div className="mb-4">
                     <label
                       htmlFor="title"
@@ -224,11 +223,11 @@ const MyBlogsPage = () => {
                       <IKUpload
                         onSuccess={(res) => {
                           setImageUrl(res.url);
-                          alert("Image uploaded successfully");
+                          toast.success("Image uploaded successfully");
                         }}
                         onError={(err) => {
                           console.error("Error uploading image:", err);
-                          setError("Error uploading image");
+                          toast.error("Error uploading image");
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                         fileName={`blog_${new Date().getTime()}.jpg`}

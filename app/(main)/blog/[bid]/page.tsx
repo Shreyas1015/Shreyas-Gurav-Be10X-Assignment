@@ -31,14 +31,21 @@ const BlogDetails = ({ params }: { params: any }) => {
   }, [bid]);
 
   if (!blogData) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <div className="spinner-border text-primary text-center" role="status">
+          <span className="visually-hidden text-center">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-      <div className="container mx-auto py-10 px-10" style={{ width: "50%" }}>
-        <h1 className="text-xl font-semibold mb-2">{blogData.title}</h1>
-        <p className="text-gray-700">{blogData.content}</p>
+      <div className="container mx-auto p-4 text-wrap">
+        <h1 className="text-3xl font-semibold mb-2 p-3">{blogData.title}</h1>
+        <p className="text-gray-700 p-3">{blogData.content}</p>
       </div>
     </>
   );

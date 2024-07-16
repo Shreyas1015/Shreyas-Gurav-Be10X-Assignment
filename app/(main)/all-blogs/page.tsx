@@ -43,15 +43,28 @@ const AllBlogsPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {blogs.map((blog) => (
           <div key={blog.bid} className="bg-white p-6 rounded-lg shadow-lg">
-            <Image
-              src={blog.imageUrl}
-              alt="Image URL"
-              width={500}
-              height={300}
-              className="object-cover"
-              priority
-              style={{ width: "auto", height: "15rem" }}
-            />
+            {blog.imageUrl === "" ? (
+              <Image
+                src="/Images/10002.jpg"
+                alt="Image URL"
+                width={500}
+                height={300}
+                className="object-cover"
+                priority
+                style={{ width: "auto", height: "15rem" }}
+              />
+            ) : (
+              <Image
+                src={blog.imageUrl}
+                alt="Image URL"
+                width={500}
+                height={300}
+                className="object-cover"
+                priority
+                style={{ width: "auto", height: "15rem" }}
+              />
+            )}
+
             <h2
               className="text-xl font-semibold mb-2 px-2"
               style={{ height: "4rem", overflow: "hidden" }}

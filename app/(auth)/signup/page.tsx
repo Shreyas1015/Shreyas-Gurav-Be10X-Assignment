@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const SignUp = () => {
     try {
       const response = await axios.post(`/api/signup`, formData);
       setSuccess(response.data.message);
-      alert("User Created Successfully");
+      toast.success("User Created Successfully");
       router.push(`/login`);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
@@ -53,7 +54,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md mx-3">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <Link href={`/login`} className="text-blue-500 hover:text-blue-700">
           <p>Already Have An account ? Login</p>
